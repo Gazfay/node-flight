@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Node-Flight</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/datepicker.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h3 class="text-center">Node Flight</h3>
+			<form id="search-form">
+				<div class="col-md-offset-1 col-md-10">
+					<div class="form-group">
+						<label for="from">From location:</label>
+						<input type="text" name="from" placeholder="eg: Sydney" id="from" class="form-control" required>
+					</div>
+				</div>
+				<div class="col-md-offset-1 col-md-10">
+					<div class="form-group">
+						<label for="from">To location:</label>
+						<input type="text" name="to" placeholder="eg: Sydney" id="to" class="form-control" required>
+					</div>
+				</div>
+				<div class="col-md-offset-1 col-md-10">
+					<div class="form-group">
+						<label for="from">Travel date:</label>
+						<input type="text" id="date" class="form-control" required>
+					</div>
+				</div>
+				<div class="col-md-offset-1 col-md-10">
+					<button type="submit" id="search-button" class="btn btn-success pull-right">Search</button>
+				</div>
+			</form>
+      <div class="col-md-offset-1 col-md-10">
+        <div id="tabs">
+          <ul class="nav nav-tabs nav-justified" role="tablist"></ul>
+        </div>
+        <div class="updates">
+        </div>
+         <script id="template" type="text/x-handlebars-template">
+           {{#if list}}
+              {{#each list}}
+                {{#each this}}
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">{{this.airline.name}} ({{this.airline.code}})</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <blockquote>
+                            <h4>From:</h4>
+                            <p>{{this.start.countryName}} ({{this.start.countryCode}}), {{this.start.cityName}}</p>
+                            <p>Airport: {{this.start.airportName}} ({{this.start.airportCode}})</p>
+                            <span>At: <b>{{#dateFormat}}{{this.start.dateTime}}{{/dateFormat}}</b></span>
+                          </blockquote>
+                        </div>
+                        <div class="col-md-6">
+                          <blockquote>
+                            <h4>To:</h4>
+                            <p>{{this.finish.countryName}} ({{this.finish.countryCode}}), {{this.finish.cityName}}</p>
+                            <p>Airport: {{this.finish.airportName}} ({{this.finish.airportCode}})</p>
+                            <span>At: <b>{{#dateFormat}}{{this.finish.dateTime}}{{/dateFormat}}</b></span>
+                          </blockquote>
+                        </div>
+                        <div class="col-md-12">
+                          <blockquote>
+                            <h4>More info:</h4>
+                            <p>Distance: {{this.distance}} km</p>
+                            <p>Duration: {{this.durationMin}} minutes</p>
+                            <p>Plane: {{this.plane.shortName}}</p>
+                            <p>Price: <b>${{this.price}}</b></p>
+                          </blockquote>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {{/each}}
+              {{/each}}
+            {{else}}
+              <div>
+                <h4 class="text-center">No information</h4>
+              </div>
+            {{/if}}
+         </script>
+      </div>
+		</div>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./js/moment.js"></script>
+<script src="./js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+<script src="./js/index.js"></script>
+</html>
